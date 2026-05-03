@@ -1,0 +1,23 @@
+{
+  "name": "0g-mem",
+  "version": "0.1.0",
+  "description": "Verifiable agent memory on 0G Labs",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy:testnet": "hardhat run contracts/scripts/deploy.js --network 0g-testnet",
+    "test:contracts": "hardhat test",
+    "test:sdk": "python -m pytest tests/ -v"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "dotenv": "^16.0.0",
+    "hardhat": "^2.22.0"
+  },
+  "dependencies": {
+    "@0gfoundation/0g-ts-sdk": "^1.2.1",
+    "@0glabs/0g-ts-sdk": "^0.3.3",
+    "ethers": "^6.13.1",
+    "node-fetch": "^3.3.2",
+    "xhr2": "^0.2.1"
+  }
+}

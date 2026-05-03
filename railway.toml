@@ -1,0 +1,15 @@
+[build]
+dockerfilePath = "Dockerfile.bot"
+
+[deploy]
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
+
+[[services]]
+name = "0g-mem-bot"
+
+[services.build]
+dockerfilePath = "Dockerfile.bot"
+
+[services.deploy]
+restartPolicyType = "ON_FAILURE"

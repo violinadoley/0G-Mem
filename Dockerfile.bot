@@ -1,0 +1,38 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# System deps for sentence-transformers + web3 + Node.js storage bridge
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential curl nodejs npm \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install CPU-only torch first (~200 MB vs ~2 GB with CUDA)
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
+# Python deps
+COPY pyproject.toml LICENSE README.md ./
+COPY ogmem/ ./ogmem/
+RUN pip install --no-cache-dir ".[dev]"
+
+# Install telegram bot dependency
+RUN pip install --no-cache-dir "python-telegram-bot>=21.0"
+
+# Node deps (0g Storage bridge)
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev --legacy-peer-deps
+
+# Application code
+COPY proto/ ./proto/
+COPY runtime/ ./runtime/
+COPY telegram_bot/ ./telegram_bot/
+COPY scripts/ ./scripts/
+
+# Non-root user
+RUN useradd -m appuser && chown -R appuser /app
+USER appuser
+
+# Disable tokenizer parallelism to avoid subprocess fork conflicts
+ENV TOKENIZERS_PARALLELISM=false
+
+CMD ["python", "-m", "telegram_bot"]

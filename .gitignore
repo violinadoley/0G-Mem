@@ -1,0 +1,37 @@
+# Secrets
+.env
+envfile.env
+*.key
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+dist/
+*.egg-info/
+.ruff_cache/
+
+# Node
+node_modules/
+
+# Hardhat
+contracts/artifacts/
+contracts/cache/
+cache/
+
+# Generated proto stubs (regenerate with: make proto)
+proto/disperser_pb2.py
+proto/disperser_pb2_grpc.py
+
+# 0g Mem runtime files
+.ogmem_index_*.json
+audit_report.json
+
+# Tools
+.deepeval
+.claude/
+
+# OS
+.DS_Store
+.next/

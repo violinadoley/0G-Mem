@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package disperser;
+
+option go_package = "github.com/0glabs/0g-da-client/api/grpc/disperser";
+
+// Disperser defines the public APIs for dispersing blobs.
+service Disperser {
+    // DisperseBlob accepts a single blob to be dispersed.
+    rpc DisperseBlob(DisperseBlobRequest) returns (DisperseBlobReply) {}
+
+    // GetBlobStatus retrieves the status of a blob.
+    rpc GetBlobStatus(BlobStatusRequest) returns (BlobStatusReply) {}
+
+    // RetrieveBlob retrieves a blob that was dispersed via this Disperser.
+    rpc RetrieveBlob(RetrieveBlobRequest) returns (RetrieveBlobReply) {}
+}
+
+// BlobStatus represents the status of a blob.
+enum BlobStatus {
+    UNKNOWN = 0;
+    PROCESSING = 1;
+    CONFIRMED = 2;
+    FAILED = 3;
+    FINALIZED = 4;
+    INSUFFICIENT_SIGNATURES = 5;
+}
+
+message DisperseBlobRequest {
+    // The data to be dispersed. Max size: 31,744 KiB.
+    bytes data = 1;
+}
+
+message DisperseBlobReply {
+    // The status of the blob.
+    BlobStatus result = 1;
+    // Unique ID for polling status. Treat as opaque bytes; encode as hex for storage.
+    bytes request_id = 2;
+}
+
+message BlobStatusRequest {
+    bytes request_id = 1;
+}
+
+message BlobStatusReply {
+    BlobStatus status = 1;
+    BlobInfo info = 2;
+}
+
+message BlobInfo {
+    BlobHeader blob_header = 1;
+}
+
+message BlobHeader {
+    // Merkle root of the blob data (use as retrieval key).
+    bytes storage_root = 1;
+    uint64 epoch = 2;
+    uint64 quorum_id = 3;
+}
+
+message RetrieveBlobRequest {
+    bytes storage_root = 1;
+    uint64 epoch = 2;
+    uint64 quorum_id = 3;
+}
+
+message RetrieveBlobReply {
+    bytes data = 1;
+}

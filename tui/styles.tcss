@@ -1,0 +1,268 @@
+/* ── Global ──────────────────────────────────────────────────────────── */
+
+ZeroGApp {
+    background: $surface;
+}
+
+/* ── Header bar ──────────────────────────────────────────────────────── */
+
+#header-bar {
+    height: 1;
+    background: $accent-darken-2;
+    color: $text;
+    padding: 0 2;
+    layout: horizontal;
+}
+
+#header-title {
+    width: auto;
+    color: $accent;
+    text-style: bold;
+}
+
+#header-sep {
+    width: auto;
+    color: $text-muted;
+    padding: 0 1;
+}
+
+#header-address {
+    width: auto;
+    color: $text-muted;
+}
+
+#header-mem-count {
+    width: auto;
+    color: $success;
+    padding: 0 2;
+}
+
+#header-mode {
+    width: auto;
+    color: $warning;
+}
+
+#header-help {
+    width: 1fr;
+    text-align: right;
+    color: $text-disabled;
+}
+
+/* ── Main layout ─────────────────────────────────────────────────────── */
+
+#main-area {
+    layout: horizontal;
+    height: 1fr;
+}
+
+/* ── Sidebar ─────────────────────────────────────────────────────────── */
+
+#sidebar {
+    width: 22;
+    border-right: solid $panel-lighten-1;
+    background: $panel;
+}
+
+#sidebar-title {
+    height: 1;
+    background: $panel-lighten-1;
+    padding: 0 1;
+    color: $text-muted;
+    text-style: bold;
+}
+
+#conv-list {
+    height: 1fr;
+}
+
+ConversationItem {
+    padding: 0 1;
+    height: 2;
+}
+
+ConversationItem:hover {
+    background: $accent-darken-3;
+}
+
+ConversationItem.active {
+    background: $accent-darken-2;
+    color: $text;
+}
+
+/* ── Chat panel ──────────────────────────────────────────────────────── */
+
+#chat-panel {
+    layout: vertical;
+    width: 1fr;
+}
+
+#messages {
+    height: 1fr;
+    padding: 0 1;
+    overflow-y: auto;
+}
+
+/* ── Input area ──────────────────────────────────────────────────────── */
+
+#input-area {
+    height: 3;
+    border-top: solid $panel-lighten-1;
+    padding: 0 1;
+    layout: horizontal;
+    align: left middle;
+}
+
+#input-box {
+    width: 1fr;
+    border: none;
+    background: transparent;
+}
+
+#input-mode-label {
+    width: auto;
+    color: $accent;
+    padding: 0 1;
+    text-style: bold;
+}
+
+/* ── Context panel (right) ───────────────────────────────────────────── */
+
+#context-panel {
+    width: 26;
+    border-left: solid $panel-lighten-1;
+    background: $panel;
+    layout: vertical;
+}
+
+#ctx-title {
+    height: 1;
+    background: $panel-lighten-1;
+    padding: 0 1;
+    color: $text-muted;
+    text-style: bold;
+}
+
+#ctx-body {
+    height: 1fr;
+    padding: 1 1;
+    overflow-y: auto;
+}
+
+.ctx-section {
+    margin-bottom: 1;
+    color: $text;
+}
+
+.ctx-used {
+    color: $primary;
+}
+
+.ctx-tools {
+    color: $success;
+}
+
+.ctx-chain {
+    color: $text-muted;
+}
+
+.ctx-latency {
+    color: $text-disabled;
+    text-align: right;
+}
+
+/* ── Status bar ──────────────────────────────────────────────────────── */
+
+#status-bar {
+    height: 1;
+    background: $panel-darken-1;
+    padding: 0 2;
+    color: $text-muted;
+}
+
+/* ── Memory modal ────────────────────────────────────────────────────── */
+
+MemoryModal {
+    align: center middle;
+}
+
+#memory-dialog {
+    width: 80;
+    height: 38;
+    border: round $accent;
+    background: $surface;
+    padding: 1 2;
+}
+
+#memory-title {
+    height: 1;
+    text-align: center;
+    color: $accent;
+    text-style: bold;
+    margin-bottom: 1;
+}
+
+#memory-tabs {
+    height: 1fr;
+}
+
+MemoryRow {
+    height: 3;
+    padding: 0 1;
+    border-bottom: solid $panel;
+    layout: horizontal;
+}
+
+MemoryRow:hover {
+    background: $panel;
+}
+
+.mem-type-badge {
+    width: 12;
+    color: $text-muted;
+    text-style: italic;
+}
+
+.mem-type-episodic   { color: $primary; }
+.mem-type-semantic   { color: $success; }
+.mem-type-procedural { color: $warning; }
+.mem-type-working    { color: $accent; }
+.mem-stale           { color: $error; }
+
+.mem-text {
+    width: 1fr;
+    color: $text;
+}
+
+.mem-meta {
+    width: 14;
+    text-align: right;
+    color: $text-muted;
+}
+
+/* ── Setup modal ─────────────────────────────────────────────────────── */
+
+SetupModal {
+    align: center middle;
+}
+
+#setup-dialog {
+    width: 70;
+    height: 20;
+    border: round $warning;
+    background: $surface;
+    padding: 2 3;
+}
+
+/* ── Help modal ──────────────────────────────────────────────────────── */
+
+HelpModal {
+    align: center middle;
+}
+
+#help-dialog {
+    width: 65;
+    height: 32;
+    border: round $accent;
+    background: $surface;
+    padding: 1 2;
+}

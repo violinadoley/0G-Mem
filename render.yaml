@@ -1,0 +1,22 @@
+services:
+  - type: worker
+    name: 0g-mem-bot
+    runtime: docker
+    dockerfilePath: ./Dockerfile.bot
+    envVars:
+      - key: AGENT_KEY
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: ZEROG_SERVICE_URL
+        sync: false
+      - key: ZEROG_API_KEY
+        sync: false
+      - key: ZEROG_MODEL
+        value: qwen/qwen-2.5-7b-instruct
+      - key: MEMORY_REGISTRY_ADDRESS
+        value: 0xEDF95D9CFb157F5F38C1125B7DFB3968E05d2c4b
+      - key: MEMORY_NFT_ADDRESS
+        value: 0x70ad85300f522A41689954a4153744BF6E57E488
+      - key: TOKENIZERS_PARALLELISM
+        value: "false"

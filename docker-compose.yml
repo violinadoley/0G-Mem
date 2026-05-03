@@ -1,0 +1,70 @@
+# 0G Mem — Docker Compose
+#
+# Starts the 0G DA client (disperser + batcher) so memory commitments
+# are posted to real 0G DA instead of staying in local mode.
+#
+# Prerequisites:
+#   git clone https://github.com/0gfoundation/0g-da-client.git ../0g-da-client
+#   cd ../0g-da-client && git submodule update --init -- 0g-da-contract 0g-da-encoder 0g-da-signer
+#
+# Quick start:
+#   1. envfile.env is already configured (private key set)
+#   2. docker-compose up -d
+#   3. python examples/legal_assistant.py --live
+#
+# The DA node exposes gRPC on localhost:51001.
+# ogmem/config.py points da_disperser_rpc to "localhost:51001".
+
+services:
+  0g-da-client:
+    image: 0g-da-client:latest
+    build:
+      context: ../0g-da-client   # cloned from https://github.com/0gfoundation/0g-da-client
+      dockerfile: combined.Dockerfile
+    container_name: 0g-da-client
+    restart: unless-stopped
+    env_file:
+      - envfile.env
+    command: >
+      combined
+      --chain.rpc https://evmrpc-testnet.0g.ai
+      --chain.receipt-wait-rounds 180
+      --chain.receipt-wait-interval 1s
+      --chain.gas-limit 2000000
+      --combined-server.use-memory-db
+      --combined-server.storage.kv-db-path /runtime
+      --combined-server.storage.time-to-expire 2592000
+      --combined-server.log.level-std info
+      --combined-server.log.level-file info
+      --combined-server.log.path /runtime/run.log
+      --disperser-server.grpc-port 51001
+      --batcher.da-entrance-contract 0x857C0A28A8634614BB2C96039Cf4a20AFF709Aa9
+      --batcher.da-signers-contract 0x0000000000000000000000000000000000001000
+      --batcher.finalizer-interval 20s
+      --batcher.confirmer-num 3
+      --batcher.max-num-retries-for-sign 3
+      --batcher.finalized-block-count 50
+      --batcher.batch-size-limit 500
+      --batcher.encoding-interval 3s
+      --batcher.encoding-request-queue-size 1
+      --batcher.pull-interval 10s
+      --batcher.signing-interval 3s
+      --batcher.signed-pull-interval 20s
+      --encoder-socket localhost:26000
+      --encoding-timeout 300s
+      --signing-timeout 60s
+      --chain-read-timeout 12s
+      --chain-write-timeout 13s
+    ports:
+      - "51001:51001"   # gRPC disperser
+    volumes:
+      - da_runtime:/runtime
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 51001 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+
+volumes:
+  da_runtime:
