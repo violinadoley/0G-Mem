@@ -36,6 +36,12 @@ Most AI memory providers (Mem0, Zep, LangMem, Supermemory) store your agent's me
 
 <img width="1366" height="790" alt="Screenshot 2026-05-03 at 7 58 19 PM" src="https://github.com/user-attachments/assets/ec197792-743a-4dcc-a555-84cb4ce2d62e" />
 
+1. Memory is stored as encrypted blobs in 0G Storage  
+2. Each memory update generates a Merkle root  
+3. Root is anchored on-chain via MemoryRegistry  
+4. Audit logs are written to 0G DA  
+5. Retrieval uses embeddings + local search  
+
 ### Write flow
 
 ```
