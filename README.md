@@ -2,7 +2,7 @@
 
 > A decentralized AI agent runtime and memory stack — verifiable, portable, and owned by you.
 
-0G Mem is built to break vendor lock-in in AI agents. Most AI tools today tightly couple memory, inference, and execution to their own infrastructure — your context lives on their servers, your agent runs on their compute, and switching costs are high. We decoupled all three layers and rebuilt them on open, verifiable infrastructure using 0G Labs, so you actually own what your agent knows and does.
+0G Mem is built to break vendor lock-in in AI agents. Most AI tools today tightly couple memory, inference, and execution to their own infrastructure — your context lives on their servers, your agent runs on their compute, and switching costs are high. We decoupled all three layers and rebuilt them on open, verifiable infrastructure using 0G Labs, so you actually own what your agent knows and does. 
 
 ---
 
