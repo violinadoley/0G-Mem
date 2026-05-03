@@ -34,33 +34,7 @@ Most AI memory providers (Mem0, Zep, LangMem, Supermemory) store your agent's me
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                     Your Agent / LLM                     │
-│         (Claude Desktop, Cursor, Telegram, TUI)          │
-└──────────────────────┬──────────────────────────────────┘
-                       │  SDK call: memory.add() / memory.query()
-                       ▼
-┌─────────────────────────────────────────────────────────┐
-│                   0G Mem Python SDK                      │
-│                                                          │
-│  ┌──────────────┐  ┌──────────────┐  ┌───────────────┐  │
-│  │  encryption  │  │  merkle tree │  │   embeddings  │  │
-│  │ AES-256-GCM  │  │   SHA-256    │  │ sentence-     │  │
-│  │ HKDF-SHA256  │  │   proofs     │  │ transformers  │  │
-│  └──────┬───────┘  └──────┬───────┘  └───────┬───────┘  │
-└─────────┼────────────────┼──────────────────┼──────────┘
-          │                │                  │
-     encrypted          Merkle root       cosine sim
-     blob upload         anchor           local search
-          │                │
-          ▼                ▼
-┌─────────────┐   ┌─────────────────┐   ┌──────────────┐
-│  0G Storage │   │   0G Chain      │   │    0G DA     │
-│  (blobs)    │   │ MemoryRegistry  │   │  audit log   │
-│             │   │  MemoryNFT      │   │  (gRPC)      │
-└─────────────┘   └─────────────────┘   └──────────────┘
-```
+<img width="1366" height="790" alt="Screenshot 2026-05-03 at 7 58 19 PM" src="https://github.com/user-attachments/assets/ec197792-743a-4dcc-a555-84cb4ce2d62e" />
 
 ### Write flow
 
